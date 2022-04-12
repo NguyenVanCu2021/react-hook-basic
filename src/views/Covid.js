@@ -1,24 +1,15 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import useFetch from '../../src/custom/fetch';
 import moment from 'moment';
 
-function Covid(props) {
+const Covid = () => {
 
-    const [dataCovid, setDataCovid] = useState([])
+    const today = new Date(new Date().setHours(0, 0, 0, 0));
+    const priorDate = moment().subtract(30, 'days');
 
-    useEffect(async() => {
-        let res = await axios.get('https://api.covid19api.com/country/vietnam?from=2021-03-01T00:00:00Z&to=2021-04-01T00:00:00Z')
-        let data = res && res.data ? res.data : [];
-        if (data && data.length > 0) {
-            data.map(item => {
-                item.Date = moment(item.Date).format('DD/MM/YYYY');
-                return item;
-            })
-        }
-        setDataCovid(data)
-        console.log(">>> check respone ", data)
-    },[]) //dung [] để useEffect chỉ chạy một lần <=> componentDidMount
+    // const { data: dataCovid, isLoading, isError } = useFetch('https://api.covid19api.com/country/vietnam?from=2021-03-01T00:00:00Z&to=2021-04-01T00:00:00Z')
+    const { data: dataCovid, isLoading, isError } = useFetch(`https://api.covid19api.com/country/vietnam?from=${priorDate.toISOString()}&to=${today.toISOString()}`)
 
+    
     return (
         <table>
             {console.log(">>> check data covid ", dataCovid)}
@@ -32,7 +23,7 @@ function Covid(props) {
               </tr>
           </thead>
           <tbody>
-              {dataCovid && dataCovid.length > 0 && dataCovid.map(item => {
+              {isError === false && isLoading === false && dataCovid && dataCovid.length > 0 && dataCovid.map(item => {
                   return (
                     <tr key={item.ID}>
                         <td>{item.Date}</td>
@@ -43,7 +34,18 @@ function Covid(props) {
                     </tr>
                   )
               })} 
-              
+
+              {isLoading === true && 
+                <tr>
+                    <td colSpan="5" style={{ 'textAlign': 'center' }}>Loading...</td>
+                </tr>
+              }
+
+              {isError === true && 
+                <tr>
+                    <td colSpan="5" style={{ 'textAlign': 'center' }}>Something Wrong...</td>
+                </tr>
+              }             
           </tbody>
         </table>
     );
