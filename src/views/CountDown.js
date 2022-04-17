@@ -7,6 +7,12 @@ class CountDown extends Component {
         count: 10
     }
 
+    componentWillUnmount() {
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+    }
+
     // chạy sau khi hàm render lần đầu
     componentWillMount() {
         this.timer = setInterval(() => {
@@ -20,7 +26,7 @@ class CountDown extends Component {
         if(prevState.count !== this.state.count && this.state.count === 0){
             if(this.timer){
                 clearInterval(this.timer)
-                this.props.onTimesup();
+                // this.props.onTimesup();
             }
         }
     }
@@ -34,11 +40,12 @@ class CountDown extends Component {
     }
 }
 
-const NewCountDown = () => {
+const NewCountDown = (props) => {
     const [count, setCount] = useState(10)
 
     useEffect(() => {
         if (count === 0) {
+            props.onTimesup()
             return;
         }
 

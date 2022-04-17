@@ -1,5 +1,8 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  color: white;
 }
 
 .App-logo {
@@ -14,8 +17,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  /* background-color: #282c34; */
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -26,6 +29,10 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.App-todo {
+  color: white;
 }
 
 @keyframes App-logo-spin {
@@ -45,11 +52,15 @@ table {
 
 td,
 th {
-  border: 1px solid #747171;
+  border: 1px solid #fff;
   text-align: left;
   padding: 8px;
 }
 
 tr:nth-child(even) {
-  background-color: #545454;
+  background-color: #5f6b83;
+}
+
+tr:nth-child(odd) {
+  background-color: #1d2d44;
 }

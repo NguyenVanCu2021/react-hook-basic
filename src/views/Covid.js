@@ -3,16 +3,17 @@ import moment from 'moment';
 
 const Covid = () => {
 
-    const today = new Date(new Date().setHours(0, 0, 0, 0));
-    const priorDate = moment().subtract(30, 'days');
+    // const today = new Date(new Date().setHours(0, 0, 0, 0));
+    const today = moment().startOf('day');
+    const priorDate = moment().startOf('day').subtract(31, 'days');
 
     // const { data: dataCovid, isLoading, isError } = useFetch('https://api.covid19api.com/country/vietnam?from=2021-03-01T00:00:00Z&to=2021-04-01T00:00:00Z')
-    const { data: dataCovid, isLoading, isError } = useFetch(`https://api.covid19api.com/country/vietnam?from=${priorDate.toISOString()}&to=${today.toISOString()}`)
+    const { data: dataCovid, isLoading, isError } = useFetch(`https://api.covid19api.com/country/vietnam?from=${priorDate.toISOString()}&to=${today.toISOString()}`, true)
 
     
     return (
         <table>
-            {console.log(">>> check data covid ", dataCovid)}
+            {/* {console.log(">>> check data covid ", dataCovid)} */}
           <thead>
               <tr>
                 <th>Date</th>
