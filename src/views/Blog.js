@@ -1,4 +1,6 @@
 import useFetch from "../custom/fetch";
+import './Blogs.scss'
+import { Link } from "react-router-dom"
 
 const Blog = () => {
 
@@ -11,17 +13,22 @@ const Blog = () => {
         console.log('check data ', newData)
     }
     return (
-        <>
-            {newData && newData.length > 0 && newData.map(item => {
+        <div className="blog-container">
+            {isLoading === false && newData && newData.length > 0 && newData.map(item => {
                 return (
                     <div className="single-block" key={item.id}>
-                        <div className="title">Title: {item.title}</div>
+                        <div className="title">{item.title}</div>
                         <div className="content">{item.body}</div>
-                        <hr />
+                        <button>
+                            <Link to={`/blog/${item.id}`}>View detail</Link>                           
+                        </button>
                     </div>
                 )
             })}
-        </>
+            {isLoading === true &&
+                <div>Loading data...</div>
+            }
+        </div>
     )
 }
 

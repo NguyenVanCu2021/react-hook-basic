@@ -7,6 +7,7 @@ import Covid from './views/Covid';
 import { CountDown, NewCountDown } from './views/CountDown';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Blog from './views/Blog';
+import DetailBlog from './views/DetailBlog';
 
 function App() {
 
@@ -71,8 +72,11 @@ function App() {
           <input type="text" value={address} onChange={(event) => handleOnChangeInput(event)}/>
           <button type="button" onClick={(event) => handleEventClick(event)}>Click me</button>
         </Route>
-        <Route path="/blog">
+        <Route path="/blog" exact>
           <Blog />
+        </Route>
+        <Route path="/blog/:id">
+          <DetailBlog />
         </Route>
       </Switch>
     </div>
