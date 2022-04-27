@@ -8,6 +8,7 @@ import { CountDown, NewCountDown } from './views/CountDown';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Blog from './views/Blog';
 import DetailBlog from './views/DetailBlog';
+import AddNewBlog from './views/AddNewBlog';
 
 function App() {
 
@@ -77,6 +78,9 @@ function App() {
         </Route>
         <Route path="/blog/:id">
           <DetailBlog />
+        </Route>
+        <Route path="/add-new-blog">
+          <AddNewBlog />
         </Route>
       </Switch>
     </div>
